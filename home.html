@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayat Firman Harian</title>
+    <link rel="stylesheet" href="style2.css?v=3">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- TOMBOL LONCENG DI HALAMAN KEDUA -->
+    <a href="pemberitahuan.html" class="btn-top-right" title="Jadwal Komunitas">
+        <i class="fa-solid fa-bell"></i>
+    </a>
+
+    <div class="container">
+
+        <div class="header-section">
+            <i class="fas fa-cross top-icon"></i>
+            <h1>RHEMA FIRMAN HARIAN</h1>
+            <p class="subtitle">Pilih warna yang menarik hatimu, dan temukan<br>ayat Firman untuk hari ini.</p>
+            <div class="heart-divider">
+                <span class="line"></span>
+                <i class="fas fa-heart"></i>
+                <span class="line"></span>
+            </div>
+        </div>
+
+        <div class="main-card">
+
+            <div class="warna-wrapper">
+                <div class="warna-item" onclick="ambilAyat('merah')">
+                    <div class="lingkaran bg-merah"><i class="fas fa-heart"></i></div>
+                    <div class="teks-judul text-merah">MERAH</div>
+                </div>
+                <div class="warna-item" onclick="ambilAyat('biru')">
+                    <div class="lingkaran bg-biru"><i class="fas fa-dove"></i></div>
+                    <div class="teks-judul text-biru">BIRU</div>
+                </div>
+                <div class="warna-item" onclick="ambilAyat('hijau')">
+                    <div class="lingkaran bg-hijau"><i class="fas fa-seedling"></i></div>
+                    <div class="teks-judul text-hijau">HIJAU</div>
+                </div>
+                <div class="warna-item" onclick="ambilAyat('kuning')">
+                    <div class="lingkaran bg-kuning"><i class="fas fa-smile"></i></div>
+                    <div class="teks-judul text-kuning">KUNING</div>
+                </div>
+                <div class="warna-item" onclick="ambilAyat('ungu')">
+                    <div class="lingkaran bg-ungu"><i class="fas fa-crown"></i></div>
+                    <div class="teks-judul text-ungu">UNGU</div>
+                </div>
+                <div class="warna-item" onclick="ambilAyat('putih')">
+                    <div class="lingkaran bg-putih"><i class="fas fa-cross" style="color: #888;"></i></div>
+                    <div class="teks-judul text-putih">PUTIH</div>
+                </div>
+            </div>
+
+            <div class="box-ayat" id="boxAyat">
+
+                <div id="tampilanKosong">
+                    <i class="fas fa-book-open ornament-book"></i>
+                    <p class="teks-kosong">Silakan sentuh warna di atas untuk menemukan firman harimu...</p>
+                </div>
+
+                <div id="tampilanIsi" style="display: none;">
+                    <div class="ornament-top">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+
+                    <h2 id="judulAyat">YOHANES 3:16</h2>
+                    <p id="teksAyat">Karena begitu besar kasih Allah akan dunia ini...</p>
+
+                    <div class="action-buttons">
+                        <button onclick="ambilAyatLagi()" class="btn-ayat-lain"><i class="fas fa-sync-alt"></i> AYAT LAIN</button>
+                        <button onclick="hapusAyat()" class="btn-hapus"><i class="fas fa-trash"></i> HAPUS</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="footer-text">
+            Firman-Mu itu pelita bagi kakiku dan terang bagi jalanku. - Mazmur 119:105
+        </div>
+
+    </div>
+
+    <script>
+        // DATABASE AYAT LOKAL (Ganti/tambah isinya di sini bebas sesuai kebutuhan)
+        const databaseAyat = {
+            "merah": [
+                "YOHANES 3:16 - Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal.",
+                "1 KORINTUS 13:4 - Kasih itu sabar; kasih itu murah hati; ia tidak cemburu. Ia tidak memegahkan diri dan tidak sombong."
+            ],
+            "biru": [
+                "YOHANES 14:27 - Damai sejahtera Kutinggalkan bagimu. Damai sejahtera-Ku Kuberikan kepadamu.",
+                "FILIPI 4:7 - Damai sejahtera Allah, yang melampaui segala akal, akan memelihara hati dan pikiranmu dalam Kristus Yesus."
+            ],
+            "hijau": [
+                "MAZMUR 92:13 - Orang benar akan bertunas seperti pohon korma, akan tumbuh subur seperti pohon aras di Libanon.",
+                "2 PETRUS 3:18 - Tetapi bertumbuhlah dalam kasih karunia dan dalam pengenalan akan Tuhan dan Juruselamat kita, Yesus Kristus."
+            ],
+            "kuning": [
+                "MAZMUR 16:11 - Engkau memberitahukan kepadaku jalan kehidupan; di hadapan-Mu ada sukacita berlimpah-limpah.",
+                "NEHEMIA 8:11 - Jangan bersusah hati, sebab sukacita karena TUHAN itulah perlindunganmu!"
+            ],
+            "ungu": [
+                "YESAYA 60:1 - Bangkitlah, menjadi teranglah, sebab terangmu datang, dan kemuliaan TUHAN terbit atasmu.",
+                "MAZMUR 8:6 - Namun Engkau telah membuatnya hampir sama seperti Allah, dan telah memahkotainya dengan kemuliaan dan hormat."
+            ],
+            "putih": [
+                "1 YOHANES 1:9 - Jika kita mengaku dosa kita, maka Ia adalah setia dan adil, sehingga Ia akan mengampuni segala dosa kita.",
+                "YESAYA 1:18 - Sekalipun dosamu merah seperti kirmizi, akan menjadi putih seperti salju."
+            ]
+        };
+
+        let warnaAktif = "";
+
+        function ambilAyat(warna) {
+            warnaAktif = warna;
+            prosesAmbilAyat();
+        }
+
+        function ambilAyatLagi() {
+            if (warnaAktif !== "") {
+                prosesAmbilAyat();
+            }
+        }
+
+        function prosesAmbilAyat() {
+            const box = document.getElementById("boxAyat");
+            const tampilanKosong = document.getElementById("tampilanKosong");
+            const tampilanIsi = document.getElementById("tampilanIsi");
+            const judulAyat = document.getElementById("judulAyat");
+            const teksAyat = document.getElementById("teksAyat");
+
+            box.style.opacity = 0;
+
+            setTimeout(() => {
+                const daftarAyat = databaseAyat[warnaAktif];
+
+                if (daftarAyat && daftarAyat.length > 0) {
+                    // Mengacak ayat secara random dari list lokal
+                    const ayatAcak = daftarAyat[Math.floor(Math.random() * daftarAyat.length)];
+                    let parts = ayatAcak.split(' - ');
+
+                    if (parts.length > 1) {
+                        judulAyat.innerText = parts[0].toUpperCase();
+                        teksAyat.innerText = parts.slice(1).join(' - ');
+                    } else {
+                        judulAyat.innerText = "FIRMAN TUHAN";
+                        teksAyat.innerText = ayatAcak;
+                    }
+
+                    tampilanKosong.style.display = "none";
+                    tampilanIsi.style.display = "block";
+                } else {
+                    judulAyat.innerText = "BELUM ADA AYAT";
+                    teksAyat.innerText = "Belum ada ayat untuk warna ini.";
+                    tampilanKosong.style.display = "none";
+                    tampilanIsi.style.display = "block";
+                }
+                box.style.opacity = 1;
+            }, 300);
+        }
+
+        function hapusAyat() {
+            const box = document.getElementById("boxAyat");
+            box.style.opacity = 0;
+
+            setTimeout(() => {
+                document.getElementById("tampilanIsi").style.display = "none";
+                document.getElementById("tampilanKosong").style.display = "block";
+                warnaAktif = "";
+                box.style.opacity = 1;
+            }, 300);
+        }
+    </script>
+
+</body>
+
+</html>
