@@ -5,47 +5,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ayat Firman Harian</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background: #0a0a0c; color: #f5f5f7; overflow-x: hidden; }
+        .hero { 
+            background: url('bg.jpg.jpg') no-repeat center center/cover fixed; 
+            min-height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+        .overlay { 
+            background: linear-gradient(to bottom, rgba(10, 10, 12, 0.65), rgba(10, 10, 12, 0.92)); 
+            width: 100%; min-height: 100vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; padding: 80px 24px; text-align: center;
+        }
+        .animate-fade-in { animation: fadeInUp 1s cubic-bezier(0.21, 0.6, 0.35, 1) forwards; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .top-icon-modern { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+        .top-icon-modern .gold-line { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, #d4af37, transparent); }
+        .top-icon-modern .icon-cross { font-size: 22px; color: #d4af37; text-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+        .premium-title { font-family: 'Playfair Display', serif; font-size: 3.2rem; color: #ffffff; letter-spacing: 2px; line-height: 1.2; margin-bottom: 20px; }
+        .premium-title .light-text { font-weight: 300; font-family: 'Montserrat', sans-serif; font-size: 2.5rem; color: #d4af37; }
+        .breathing-title { animation: breathe 4s ease-in-out infinite alternate; }
+        @keyframes breathe {
+            0% { text-shadow: 0 0 10px rgba(255,255,255,0.1); letter-spacing: 2px; }
+            100% { text-shadow: 0 0 25px rgba(212, 175, 55, 0.35); letter-spacing: 3px; }
+        }
+        .ayat-modern { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.3rem; color: #cccccc; max-width: 550px; margin-bottom: 12px; }
+        .mazmur-modern { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: #d4af37; margin-bottom: 40px; }
+        .btn-premium { 
+            display: inline-block; background: transparent; color: #ffffff; text-decoration: none; 
+            padding: 14px 36px; font-size: 0.95rem; border-radius: 40px; font-weight: 600; letter-spacing: 1px;
+            border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 20px rgba(0,0,0,0.4); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-premium:hover { background: #ffffff; color: #0a0a0c; transform: translateY(-2px); box-shadow: 0 0 20px rgba(214, 175, 55, 0.4); border-color: #d4af37; }
+        .btn-top-right-modern { position: fixed; top: 30px; right: 30px; color: #d4af37; font-size: 28px; z-index: 100; animation: swingBell 4s ease-in-out infinite; }
+        @keyframes swingBell { 0%, 100% { transform: rotate(0); } 5% { transform: rotate(15deg); } 10% { transform: rotate(-15deg); } 15% { transform: rotate(10deg); } 20% { transform: rotate(-10deg); } 25% { transform: rotate(0); } }
+        .fitur-modern { display: flex; justify-content: center; gap: 24px; max-width: 1100px; width: 100%; margin-top: 20px; flex-wrap: wrap; }
+        .box-modern { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); backdrop-filter: blur(8px); padding: 30px 24px; width: 300px; border-radius: 20px; text-align: center; transition: 0.3s; }
+        .box-modern:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.06); border-color: rgba(212, 175, 55, 0.3); }
+        .box-icon { font-size: 30px; margin-bottom: 12px; }
+        .box-modern h3 { font-size: 1rem; letter-spacing: 1px; color: #ffffff; margin-bottom: 8px; }
+        .box-modern p { font-size: 0.85rem; color: #8a8a93; line-height: 1.5; }
+        @media screen and (max-width: 600px) { .premium-title { font-size: 2.2rem; } .premium-title .light-text { font-size: 1.8rem; } .box-modern { width: 100%; } }
+    </style>
 </head>
 
 <body>
     <section class="hero">
-        <div class="overlay">
-            <!-- LINK KE HALAMAN PEMBERITAHUAN -->
-            <a href="pemberitahuan.html" class="btn-top-right" title="Jadwal Komunitas">
+        <div class="overlay animate-fade-in">
+            <a href="pemberitahuan.html" class="btn-top-right-modern" title="Jadwal Komunitas">
                 <i class="fa-solid fa-bell"></i>
             </a>
-
-            <div class="top-icon">
-                <div class="line"></div>
-                <div class="icon">📖 ✝️</div>
-                <div class="line"></div>
+            <div class="top-icon-modern">
+                <span class="gold-line"></span>
+                <span class="icon-cross">✝</span>
+                <span class="gold-line"></span>
             </div>
+            <h1 class="premium-title breathing-title">RHEMA FIRMAN<br><span class="light-text">HARIAN</span></h1>
+            <p class="ayat-modern">"Firman Tuhan adalah pelita bagi kakiku dan terang bagi jalanku."</p>
+            <div class="mazmur-modern">Mazmur 119:105</div>
 
-            <h1>AYAT FIRMAN<br>HARIAN</h1>
-            <p class="ayat">Firman Tuhan adalah pelita bagi kakiku<br>dan terang bagi jalanku.</p>
-            <div class="mazmur">Mazmur 119:105</div>
-
-            <div class="divider"><span>❤</span></div>
-
-            <!-- TOMBOL MULAI -->
             <div class="action-buttons-home">
-                <a href="home.html" class="btn">➜ MULAI</a>
+                <a href="mood.html" class="btn-premium">Mulai Langkahmu <i class="fa-solid fa-arrow-right-long"></i></a>
             </div>
 
-            <div class="fitur">
-                <div class="box">
-                    <h3>📖 AYAT RANDOM</h3>
-                    <p>Setiap klik, ayat baru untuk hatimu</p>
+            <div class="fitur-modern">
+                <div class="box-modern">
+                    <div class="box-icon">📖</div>
+                    <h3>AYAT RANDOM</h3>
+                    <p>Setiap ketukan membawa pesan baru untuk menguatkan hatimu.</p>
                 </div>
-                <div class="box">
-                    <h3>💛 INSPIRASI HARIAN</h3>
-                    <p>Firman Tuhan untuk menguatkan imanmu</p>
+                <div class="box-modern">
+                    <div class="box-icon">💛</div>
+                    <h3>INSPIRASI HARIAN</h3>
+                    <p>Firman Tuhan yang relevan untuk menuntun hari-harimu.</p>
                 </div>
-                <div class="box">
-                    <h3>✝️ DEKAT DENGAN TUHAN</h3>
-                    <p>Biarkan Firman-Nya menuntun langkahmu</p>
+                <div class="box-modern">
+                    <div class="box-icon">🕊</div>
+                    <h3>KEDAMAIAN BATIN</h3>
+                    <p>Biarkan setiap bait Firman-Nya menenangkan jiwamu.</p>
                 </div>
             </div>
         </div>
