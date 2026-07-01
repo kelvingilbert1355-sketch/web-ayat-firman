@@ -5,91 +5,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ayat Firman Harian</title>
-    <link rel="stylesheet" href="style2.css?v=3">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #121212; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 24px; transition: background-color 0.8s ease; }
+        .container { width: 100%; max-width: 480px; }
+        .header-section-modern h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #ffffff; margin-bottom: 8px; letter-spacing: 1px; text-align: center; }
+        .header-section-modern .subtitle-modern { color: #8a8a93; font-size: 0.9rem; margin-bottom: 30px; line-height: 1.4; text-align: center; }
+        .main-card-modern { background: rgba(24, 24, 28, 0.95); border: 1px solid rgba(255,255,255,0.05); border-radius: 28px; padding: 30px 24px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5); transition: box-shadow 0.8s ease, border-color 0.8s ease; }
+        .warna-wrapper-modern { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 30px; }
+        .warna-item-modern { cursor: pointer; display: flex; flex-direction: column; align-items: center; transition: 0.3s; }
+        .warna-item-modern:hover { transform: translateY(-4px); }
+        .lingkaran { width: 64px; height: 64px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 22px; color: #fff; margin-bottom: 8px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+        .bg-merah-premium { background: #7a2222; }
+        .bg-biru-premium { background: #22407a; }
+        .bg-hijau-premium { background: #2a5237; }
+        .bg-kuning-premium { background: #6e5d1f; }
+        .bg-ungu-premium { background: #4f227a; }
+        .bg-putih-premium { background: #e2e2e6; color: #444; }
+        .teks-judul-modern { font-size: 0.75rem; color: #a1a1aa; font-weight: 600; letter-spacing: 0.5px; }
+        .box-ayat-modern { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: 20px; padding: 30px 20px; min-height: 160px; display: flex; flex-direction: column; justify-content: center; text-align: center; transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .ornament-book-modern { font-size: 28px; color: #d4af37; margin-bottom: 12px; opacity: 0.7; }
+        .teks-kosong-modern { font-size: 0.85rem; color: #71717a; line-height: 1.4; text-align: center; }
+        #judulAyat { font-size: 1.1rem; letter-spacing: 2px; color: #d4af37; margin-bottom: 12px; }
+        .bookmark-container { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .btn-bookmark { background: transparent; border: none; font-size: 22px; color: #8a8a93; cursor: pointer; transition: transform 0.2s ease; padding: 4px; }
+        .btn-bookmark:hover { transform: scale(1.2); }
+        .quote-mark-modern { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: rgba(255,255,255,0.1); line-height: 0; margin-bottom: -10px; }
+        #teksAyat { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.15rem; color: #e4e4e7; line-height: 1.6; }
+        .action-buttons-modern { display: flex; gap: 10px; margin-top: 24px; }
+        .btn-action-premium { flex: 1; padding: 12px; border-radius: 20px; border: none; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: 0.2s; letter-spacing: 0.5px; text-align: center; }
+        .btn-action-premium.primary { background: #ffffff; color: #121212; }
+        .btn-action-premium.primary:hover { background: #d4af37; }
+        .btn-action-premium.secondary { background: transparent; color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+        .btn-action-premium.secondary:hover { background: rgba(239, 68, 68, 0.1); }
+        .tab-navigation { display: flex; gap: 10px; margin-bottom: 16px; background: rgba(0,0,0,0.2); padding: 6px; border-radius: 14px; }
+        .tab-btn { flex: 1; padding: 10px; border: none; border-radius: 10px; background: transparent; color: #8a8a93; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: 0.3s; }
+        .tab-btn.active { background: rgba(255,255,255,0.08); color: #ffffff; }
+        .fav-list-container { max-height: 350px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding-right: 4px; }
+        .fav-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); padding: 16px; border-radius: 14px; text-align: left; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+        .fav-item h5 { font-size: 0.9rem; color: #d4af37; margin-bottom: 4px; letter-spacing: 0.5px; }
+        .fav-item p { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.95rem; color: #d4d4d8; line-height: 1.4; }
+        .btn-del-fav { background: transparent; border: none; color: #ef4444; opacity: 0.6; cursor: pointer; transition: 0.2s; font-size: 14px; }
+        .btn-del-fav:hover { opacity: 1; transform: scale(1.1); }
+        .btn-back-home { position: fixed; top: 30px; left: 30px; color: #8a8a93; font-size: 24px; transition: 0.3s; }
+        .btn-back-home:hover { color: #fff; }
+        .btn-top-right-modern { position: fixed; top: 30px; right: 30px; color: #8a8a93; font-size: 24px; transition: 0.3s; }
+        .btn-top-right-modern:hover { color: #d4af37; }
+        .animate-fade-in { animation: fadeInUp 0.8s ease-out; }
+        @media screen and (max-width: 600px) { .warna-wrapper-modern { gap: 10px; } .lingkaran { width: 56px; height: 56px; font-size: 18px; } .action-buttons-modern { flex-direction: column; } }
+    </style>
 </head>
 
-<body>
+<body id="dynamicBody">
 
-    <!-- TOMBOL LONCENG DI HALAMAN KEDUA -->
-    <a href="pemberitahuan.html" class="btn-top-right" title="Jadwal Komunitas">
-        <i class="fa-solid fa-bell"></i>
-    </a>
+    <a href="index.html" class="btn-back-home" title="Kembali ke Utama"><i class="fa-solid fa-house"></i></a>
+    <a href="pemberitahuan.html" class="btn-top-right-modern" title="Jadwal Komunitas"><i class="fa-solid fa-bell"></i></a>
 
-    <div class="container">
-
-        <div class="header-section">
-            <i class="fas fa-cross top-icon"></i>
-            <h1>RHEMA FIRMAN HARIAN</h1>
-            <p class="subtitle">Pilih warna yang menarik hatimu, dan temukan<br>ayat Firman untuk hari ini.</p>
-            <div class="heart-divider">
-                <span class="line"></span>
-                <i class="fas fa-heart"></i>
-                <span class="line"></span>
-            </div>
+    <div class="container animate-fade-in">
+        <div class="header-section-modern">
+            <h1>RHEMA FIRMAN</h1>
+            <p class="subtitle-modern">Pilih warna yang menarik hatimu, atau lihat koleksi ayat simpananmu.</p>
         </div>
 
-        <div class="main-card">
+        <div class="tab-navigation">
+            <button id="tabUtama" class="tab-btn active" onclick="gantiTab('utama')">✨ Cari Firman</button>
+            <button id="tabFavorit" class="tab-btn" onclick="gantiTab('favorit')">❤️ Koleksiku (<span id="favCount">0</span>)</button>
+        </div>
 
-            <div class="warna-wrapper">
-                <div class="warna-item" onclick="ambilAyat('merah')">
-                    <div class="lingkaran bg-merah"><i class="fas fa-heart"></i></div>
-                    <div class="teks-judul text-merah">MERAH</div>
+        <div class="main-card-modern" id="panelUtama">
+            <div class="warna-wrapper-modern">
+                <div class="warna-item-modern" onclick="ambilAyat('merah', '#4a1515', 'rgba(219, 68, 55, 0.2)')">
+                    <div class="lingkaran bg-merah-premium"><i class="fas fa-heart"></i></div>
+                    <div class="teks-judul-modern">Kasih</div>
                 </div>
-                <div class="warna-item" onclick="ambilAyat('biru')">
-                    <div class="lingkaran bg-biru"><i class="fas fa-dove"></i></div>
-                    <div class="teks-judul text-biru">BIRU</div>
+                <div class="warna-item-modern" onclick="ambilAyat('biru', '#152b4a', 'rgba(66, 133, 244, 0.2)')">
+                    <div class="lingkaran bg-biru-premium"><i class="fas fa-dove"></i></div>
+                    <div class="teks-judul-modern">Damai</div>
                 </div>
-                <div class="warna-item" onclick="ambilAyat('hijau')">
-                    <div class="lingkaran bg-hijau"><i class="fas fa-seedling"></i></div>
-                    <div class="teks-judul text-hijau">HIJAU</div>
+                <div class="warna-item-modern" onclick="ambilAyat('hijau', '#1c3a27', 'rgba(104, 159, 56, 0.2)')">
+                    <div class="lingkaran bg-hijau-premium"><i class="fas fa-seedling"></i></div>
+                    <div class="teks-judul-modern">Tumbuh</div>
                 </div>
-                <div class="warna-item" onclick="ambilAyat('kuning')">
-                    <div class="lingkaran bg-kuning"><i class="fas fa-smile"></i></div>
-                    <div class="teks-judul text-kuning">KUNING</div>
+                <div class="warna-item-modern" onclick="ambilAyat('kuning', '#4a3f15', 'rgba(244, 180, 0, 0.15)')">
+                    <div class="lingkaran bg-kuning-premium"><i class="fas fa-smile"></i></div>
+                    <div class="teks-judul-modern">Sukacita</div>
                 </div>
-                <div class="warna-item" onclick="ambilAyat('ungu')">
-                    <div class="lingkaran bg-ungu"><i class="fas fa-crown"></i></div>
-                    <div class="teks-judul text-ungu">UNGU</div>
+                <div class="warna-item-modern" onclick="ambilAyat('ungu', '#33154a', 'rgba(142, 36, 170, 0.2)')">
+                    <div class="lingkaran bg-ungu-premium"><i class="fas fa-crown"></i></div>
+                    <div class="teks-judul-modern">Mulia</div>
                 </div>
-                <div class="warna-item" onclick="ambilAyat('putih')">
-                    <div class="lingkaran bg-putih"><i class="fas fa-cross" style="color: #888;"></i></div>
-                    <div class="teks-judul text-putih">PUTIH</div>
+                <div class="warna-item-modern" onclick="ambilAyat('putih', '#2b2b2b', 'rgba(255, 255, 255, 0.1)')">
+                    <div class="lingkaran bg-putih-premium"><i class="fas fa-cross"></i></div>
+                    <div class="teks-judul-modern">Murni</div>
                 </div>
             </div>
 
-            <div class="box-ayat" id="boxAyat">
-
+            <div class="box-ayat-modern" id="boxAyat">
                 <div id="tampilanKosong">
-                    <i class="fas fa-book-open ornament-book"></i>
-                    <p class="teks-kosong">Silakan sentuh warna di atas untuk menemukan firman harimu...</p>
+                    <i class="fas fa-book-open ornament-book-modern"></i>
+                    <p class="teks-kosong-modern">Sentuh salah satu warna di atas untuk menerima Firman...</p>
                 </div>
 
                 <div id="tampilanIsi" style="display: none;">
-                    <div class="ornament-top">
-                        <i class="fas fa-book-open"></i>
+                    <div class="bookmark-container">
+                        <h2 id="judulAyat">YOHANES 3:16</h2>
+                        <button onclick="toggleBookmark()" class="btn-bookmark" id="btnBookmark" title="Simpan Ayat">
+                            <i class="far fa-heart"></i>
+                        </button>
                     </div>
-
-                    <h2 id="judulAyat">YOHANES 3:16</h2>
+                    <div class="quote-mark-modern">“</div>
                     <p id="teksAyat">Karena begitu besar kasih Allah akan dunia ini...</p>
 
-                    <div class="action-buttons">
-                        <button onclick="ambilAyatLagi()" class="btn-ayat-lain"><i class="fas fa-sync-alt"></i> AYAT LAIN</button>
-                        <button onclick="hapusAyat()" class="btn-hapus"><i class="fas fa-trash"></i> HAPUS</button>
+                    <div class="action-buttons-modern">
+                        <button onclick="ambilAyatLagi()" class="btn-action-premium primary"><i class="fas fa-sync-alt"></i> Ayat Lain</button>
+                        <button onclick="bagikanAyat()" class="btn-action-premium primary" style="background: #25D366; color: white;"><i class="fab fa-whatsapp"></i> Bagikan</button>
+                        <button onclick="hapusAyat()" class="btn-action-premium secondary"><i class="fas fa-trash"></i> Bersihkan</button>
                     </div>
                 </div>
-
             </div>
         </div>
 
-        <div class="footer-text">
-            Firman-Mu itu pelita bagi kakiku dan terang bagi jalanku. - Mazmur 119:105
+        <div class="main-card-modern" id="panelFavorit" style="display: none;">
+            <div id="daftarFavoritKosong" class="teks-kosong-modern" style="padding: 40px 0;">
+                <i class="fas fa-heart-broken" style="font-size: 30px; margin-bottom: 10px; opacity: 0.5;"></i>
+                <p>Belum ada ayat yang kamu simpan. Sentuh ikon hati pada ayat yang kamu sukai!</p>
+            </div>
+            <div id="listAyatFavorit" class="fav-list-container"></div>
         </div>
-
     </div>
 
     <script>
-        // DATABASE AYAT LOKAL (Ganti/tambah isinya di sini bebas sesuai kebutuhan)
         const databaseAyat = {
             "merah": [
                 "YOHANES 3:16 - Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal.",
@@ -117,18 +164,34 @@
             ]
         };
 
-        let warnaAktif = "";
+        let warnaAktif = ""; let ayatAktifTeksFull = "";
 
-        function ambilAyat(warna) {
+        window.onload = function() {
+            updateBadgeFavorit();
+            const autoWarna = sessionStorage.getItem('autoWarna');
+            if (autoWarna) {
+                sessionStorage.removeItem('autoWarna');
+                const warnaConfig = {
+                    'merah': { bg: '#4a1515', glow: 'rgba(219, 68, 55, 0.2)' },
+                    'biru': { bg: '#152b4a', glow: 'rgba(66, 133, 244, 0.2)' },
+                    'hijau': { bg: '#1c3a27', glow: 'rgba(104, 159, 56, 0.2)' },
+                    'kuning': { bg: '#4a3f15', glow: 'rgba(244, 180, 0, 0.15)' },
+                    'ungu': { bg: '#33154a', glow: 'rgba(142, 36, 170, 0.2)' },
+                    'putih': { bg: '#2b2b2b', glow: 'rgba(255, 255, 255, 0.1)' }
+                };
+                if(warnaConfig[autoWarna]) { ambilAyat(autoWarna, warnaConfig[autoWarna].bg, warnaConfig[autoWarna].glow); }
+            }
+        };
+
+        function ambilAyat(warna, hexColor, glowColor) {
             warnaAktif = warna;
+            document.getElementById("dynamicBody").style.backgroundColor = hexColor;
+            document.getElementById("panelUtama").style.boxShadow = `0 30px 70px ${glowColor}, 0 10px 30px rgba(0,0,0,0.5)`;
+            document.getElementById("panelUtama").style.borderColor = glowColor;
             prosesAmbilAyat();
         }
 
-        function ambilAyatLagi() {
-            if (warnaAktif !== "") {
-                prosesAmbilAyat();
-            }
-        }
+        function ambilAyatLagi() { if (warnaAktif !== "") { prosesAmbilAyat(); } }
 
         function prosesAmbilAyat() {
             const box = document.getElementById("boxAyat");
@@ -136,50 +199,75 @@
             const tampilanIsi = document.getElementById("tampilanIsi");
             const judulAyat = document.getElementById("judulAyat");
             const teksAyat = document.getElementById("teksAyat");
-
-            box.style.opacity = 0;
-
+            box.style.opacity = 0; box.style.transform = "scale(0.98) translateY(10px)";
             setTimeout(() => {
                 const daftarAyat = databaseAyat[warnaAktif];
-
                 if (daftarAyat && daftarAyat.length > 0) {
-                    // Mengacak ayat secara random dari list lokal
                     const ayatAcak = daftarAyat[Math.floor(Math.random() * daftarAyat.length)];
+                    ayatAktifTeksFull = ayatAcak;
                     let parts = ayatAcak.split(' - ');
-
-                    if (parts.length > 1) {
-                        judulAyat.innerText = parts[0].toUpperCase();
-                        teksAyat.innerText = parts.slice(1).join(' - ');
-                    } else {
-                        judulAyat.innerText = "FIRMAN TUHAN";
-                        teksAyat.innerText = ayatAcak;
-                    }
-
-                    tampilanKosong.style.display = "none";
-                    tampilanIsi.style.display = "block";
-                } else {
-                    judulAyat.innerText = "BELUM ADA AYAT";
-                    teksAyat.innerText = "Belum ada ayat untuk warna ini.";
-                    tampilanKosong.style.display = "none";
-                    tampilanIsi.style.display = "block";
+                    judulAyat.innerText = parts[0].toUpperCase();
+                    teksAyat.innerText = parts.slice(1).join(' - ');
+                    let favorites = JSON.parse(localStorage.getItem('ayatFavorites')) || [];
+                    const icon = document.getElementById("btnBookmark").querySelector("i");
+                    if (favorites.includes(ayatAktifTeksFull)) { icon.className = "fas fa-heart"; icon.style.color = "#ef4444"; } 
+                    else { icon.className = "far fa-heart"; icon.style.color = "#8a8a93"; }
+                    tampilanKosong.style.display = "none"; tampilanIsi.style.display = "block";
                 }
-                box.style.opacity = 1;
-            }, 300);
+                box.style.opacity = 1; box.style.transform = "scale(1) translateY(0)";
+            }, 350);
+        }
+
+        function toggleBookmark() {
+            let favorites = JSON.parse(localStorage.getItem('ayatFavorites')) || [];
+            const icon = document.getElementById("btnBookmark").querySelector("i");
+            if (favorites.includes(ayatAktifTeksFull)) { favorites = favorites.filter(item => item !== ayatAktifTeksFull); icon.className = "far fa-heart"; icon.style.color = "#8a8a93"; } 
+            else { favorites.push(ayatAktifTeksFull); icon.className = "fas fa-heart"; icon.style.color = "#ef4444"; }
+            localStorage.setItem('ayatFavorites', JSON.stringify(favorites)); updateBadgeFavorit(); tampilkanListFavorit();
+        }
+
+        function updateBadgeFavorit() { let favorites = JSON.parse(localStorage.getItem('ayatFavorites')) || []; document.getElementById("favCount").innerText = favorites.length; }
+
+        function tampilkanListFavorit() {
+            let favorites = JSON.parse(localStorage.getItem('ayatFavorites')) || [];
+            const containerKosong = document.getElementById("daftarFavoritKosong");
+            const listContainer = document.getElementById("listAyatFavorit");
+            listContainer.innerHTML = "";
+            if (favorites.length === 0) { containerKosong.style.display = "block"; } 
+            else {
+                containerKosong.style.display = "none";
+                favorites.forEach((ayat, index) => {
+                    let parts = ayat.split(' - ');
+                    listContainer.innerHTML += `<div class="fav-item"><div><h5>${parts[0]}</h5><p>"${parts.slice(1).join(' - ')}"</p></div><button onclick="hapusFavoritSpesifik(${index})" class="btn-del-fav"><i class="fas fa-trash"></i></button></div>`;
+                });
+            }
+        }
+
+        function hapusFavoritSpesifik(index) {
+            let favorites = JSON.parse(localStorage.getItem('ayatFavorites')) || []; favorites.splice(index, 1);
+            localStorage.setItem('ayatFavorites', JSON.stringify(favorites)); updateBadgeFavorit(); tampilkanListFavorit();
+            if(warnaAktif !== "") prosesAmbilAyat();
+        }
+
+        function bagikanAyat() {
+            if (ayatAktifTeksFull === "") return;
+            const teksPesan = encodeURIComponent(`*Rhema Firman Hari Ini* ✨\n\n${ayatAktifTeksFull}`);
+            window.open(`https://api.whatsapp.com/send?text=${teksPesan}`, '_blank');
+        }
+
+        function gantiTab(target) {
+            if (target === 'utama') { document.getElementById("panelUtama").style.display = "block"; document.getElementById("panelFavorit").style.display = "none"; document.getElementById("tabUtama").classList.add("active"); document.getElementById("tabFavorit").classList.remove("active"); } 
+            else { document.getElementById("panelUtama").style.display = "none"; document.getElementById("panelFavorit").style.display = "block"; document.getElementById("tabUtama").classList.remove("active"); document.getElementById("tabFavorit").classList.add("active"); tampilkanListFavorit(); }
         }
 
         function hapusAyat() {
-            const box = document.getElementById("boxAyat");
-            box.style.opacity = 0;
-
+            const box = document.getElementById("boxAyat"); box.style.opacity = 0;
             setTimeout(() => {
-                document.getElementById("tampilanIsi").style.display = "none";
-                document.getElementById("tampilanKosong").style.display = "block";
-                warnaAktif = "";
-                box.style.opacity = 1;
-            }, 300);
+                document.getElementById("tampilanIsi").style.display = "none"; document.getElementById("tampilanKosong").style.display = "block";
+                document.getElementById("dynamicBody").style.backgroundColor = "#121212"; document.getElementById("panelUtama").style.boxShadow = "0 25px 60px rgba(0, 0, 0, 0.5)"; document.getElementById("panelUtama").style.borderColor = "rgba(255,255,255,0.05)";
+                warnaAktif = ""; ayatAktifTeksFull = ""; box.style.opacity = 1;
+            }, 350);
         }
     </script>
-
 </body>
-
 </html>
