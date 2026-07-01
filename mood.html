@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Check-In - Ayat Firman</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: #121212; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 24px; color: #fff; }
+        .container { width: 100%; max-width: 480px; text-align: center; }
+        .header-section-modern h1 { font-family: 'Playfair Display', serif; font-size: 2rem; color: #ffffff; margin-bottom: 8px; letter-spacing: 1px; }
+        .header-section-modern .subtitle-modern { color: #8a8a93; font-size: 0.9rem; margin-bottom: 30px; line-height: 1.4; }
+        .main-card-modern { background: rgba(24, 24, 28, 0.95); border: 1px solid rgba(255,255,255,0.05); border-radius: 28px; padding: 30px 24px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5); }
+        .mood-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 20px 0; }
+        .mood-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); padding: 24px 16px; border-radius: 16px; cursor: pointer; transition: 0.3s; }
+        .mood-item:hover { transform: translateY(-4px); background: rgba(255,255,255,0.08); border-color: rgba(212, 175, 55, 0.3); }
+        .mood-emoji { font-size: 32px; display: block; margin-bottom: 8px; }
+        
+        /* WARNA TEKS SUDAH DIPERBAIKI DI SINI */
+        .mood-item h4 { font-size: 0.9rem; color: #ffffff; font-weight: 500; }
+        
+        .btn-action-premium.secondary { display: inline-block; background: transparent; color: #a1a1aa; border: 1px solid rgba(255,255,255,0.1); padding: 12px 24px; border-radius: 20px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: 0.2s; }
+        .btn-action-premium.secondary:hover { color: #fff; border-color: #fff; }
+        .animate-fade-in { animation: fadeInUp 0.8s ease-out; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+
+<body>
+    <div class="container animate-fade-in">
+        <div class="header-section-modern">
+            <h1>KONDISI HATIMU</h1>
+            <p class="subtitle-modern">Bagaimana perasaan jiwamu saat ini? Pilih yang paling menggambarkan hatimu.</p>
+        </div>
+
+        <div class="main-card-modern">
+            <div class="mood-grid">
+                <div class="mood-item" onclick="pilihMood('merah')">
+                    <span class="mood-emoji">💝</span>
+                    <h4>Butuh Kasih</h4>
+                </div>
+                <div class="mood-item" onclick="pilihMood('biru')">
+                    <span class="mood-emoji">😰</span>
+                    <h4>Gelisah / Cemas</h4>
+                </div>
+                <div class="mood-item" onclick="pilihMood('hijau')">
+                    <span class="mood-emoji">🌱</span>
+                    <h4>Ingin Bertumbuh</h4>
+                </div>
+                <div class="mood-item" onclick="pilihMood('kuning')">
+                    <span class="mood-emoji">😔</span>
+                    <h4>Sedih / Lesu</h4>
+                </div>
+                <div class="mood-item" onclick="pilihMood('ungu')">
+                    <span class="mood-emoji">👑</span>
+                    <h4>Bersyukur</h4>
+                </div>
+                <div class="mood-item" onclick="pilihMood('putih')">
+                    <span class="mood-emoji">✝️</span>
+                    <h4>Butuh Ampunan</h4>
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <a href="home.html" class="btn-action-premium secondary">Lewati & Pilih Warna Langsung</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function pilihMood(warnaTujuan) {
+            sessionStorage.setItem('autoWarna', warnaTujuan);
+            window.location.href = 'home.html';
+        }
+    </script>
+</body>
+</html>
